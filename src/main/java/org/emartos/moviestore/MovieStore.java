@@ -13,31 +13,15 @@ public class MovieStore {
     }
 
     public List<Movie> findByPartialTitle(String partialTitle) {
-        Predicate predicate = new Predicate() {
-            public boolean matches(Movie movie) {
-                return movie.title().toUpperCase().contains(partialTitle.toUpperCase());
-            }
-        };
-        return findBy(predicate);
+        return findBy(movie -> movie.title().toUpperCase().contains(partialTitle.toUpperCase()));
     }
 
     public List<Movie> findByDirector(String partialTitle) {
-        Predicate predicate = new Predicate() {
-            public boolean matches(Movie movie) {
-                return movie.director().equals(partialTitle);
-            }
-        };
-        return findBy(predicate);
+        return findBy(movie -> movie.director().equals(partialTitle));
     }
 
     public List<Movie> findByReleaseYear(int from, int to) {
-        Predicate predicate = new Predicate() {
-            public boolean matches(Movie movie) {
-                return movie.releaseYear() > from && movie.releaseYear() < to;
-            }
-        };
-        return findBy(predicate);
-
+        return findBy(movie -> movie.releaseYear() > from && movie.releaseYear() < to);
     }
 
     private List<Movie> findBy(Predicate predicate) {
